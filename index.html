@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nkanyiso Portfolio</title>
+<style>
+  /* Reset & Body */
+  * {margin:0; padding:0; box-sizing:border-box; transition: background 0.6s, color 0.6s;}
+  body {font-family:'Poppins',sans-serif; background:#111; color:#fff; transition: background 0.6s, color 0.6s;}
+  body.light {background:#fff; color:#111;}
+
+  /* Navbar */
+  .navbar {
+    position: fixed; top:0; left:0; right:0; height:60px;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 30px; background:rgba(0,0,0,0.6); backdrop-filter:blur(5px); z-index:1000;
+  }
+  body.light .navbar {background: rgba(255,255,255,0.8); color: #111;}
+
+  .logo {font-weight:900; font-size:1.2rem; display:flex; gap:2px;}
+  .logo span {display:inline-block; animation: float 1.5s ease-in-out infinite, colorShift 6s linear infinite;}
+  @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  @keyframes colorShift {0%{color:#fff;}25%{color:#00c6ff;}50%{color:#ff00ff;}75%{color:#ffae00;}100%{color:#fff;}}
+  body.light .logo span {color:#111;}
+
+  /* Dark/Light Mode Toggle */
+  .toggle {--size:2.5em; width: calc(var(--size)*2); height: var(--size); border-radius:var(--size); border:2px solid #444; background:#111; position:relative; cursor:pointer; overflow:hidden; transition:0.6s;}
+  .toggle::before {content:""; position:absolute; top:0.2em; left:0.2em; width:2em; height:2em; border-radius:50%; background:#f4f4f4; box-shadow:-6px -6px 0 0 #111; transition:0.6s;}
+  .toggle::after {content:"✦ ✧ ✶"; position:absolute; top:0.5em; left:3.6em; font-size:0.8em; color:#f4f4f4; opacity:1; transition:0.6s;}
+  body.light .toggle {background:#fff; border:2px solid #ccc;}
+  body.light .toggle::before {background:#f6d743; box-shadow:0 0 15px 5px #f6d743; left:calc(100% - 2em);}
+  body.light .toggle::after {opacity:0;}
+
+  /* Sections */
+  .section {padding:80px 20px; margin:40px auto; max-width:1200px; border-radius:10px; transition:background 0.6s, color 0.6s;}
+  .white {background:#fff; color:#111;}
+  .black {background:#111; color:#fff;}
+  body.light .white {background:#111; color:#fff;}
+  body.light .black {background:#fff; color:#111;}
+
+  h2 {text-align:center; margin-bottom:20px;}
+  p {text-align:center; max-width:800px; margin:0 auto 20px;}
+  /* Project Cards */
+  .projects-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+  .project-card {padding:20px; border-radius:10px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+  body.light .project-card {box-shadow:0 0 10px rgba(255,255,255,0.1);}
+  .project-card img {width:100%; border-radius:10px; margin-bottom:10px;}
+  .project-card button {padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#ff1a1a; color:white; transition:0.3s;}
+  .project-card button:hover {background:#ff3333;}
+  /* Rating */
+  .rating span {font-size:2rem; cursor:pointer; transition:0.3s;}
+  .rating span:hover, .rating span.selected {transform:scale(1.3); color:#ff1a1a;}
+  /* Footer */
+  footer {text-align:center; padding:20px; margin-top:40px; background:#222; color:white;}
+  body.light footer {background:#ddd; color:#111;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">
+    <span>N</span><span>K</span><span>A</span><span>N</span><span>Y</span><span>I</span><span>S</span><span>O</span>
+  </div>
+  <button class="toggle" id="modeToggle"></button>
+</nav>
+
+<!-- Hero Section -->
+<section class="section white" id="welcome">
+  <div class="hero-container">
+    <div class="hero-text">
+      <h2 class="neon-welcome">Welcome!</h2>
+      <h1 class="neon-name"><p>It's me, <p/>Nkanyiso Austine Hlatshwayo</h1>
+      <p class="intro">
+        Take a look around to see what I’ve been working on, my skills, and some of the projects I’m proud of. Feel free to explore—I hope you enjoy your stay!
+      </p>
+      <div id="skill" class="skill neon-skill"></div>
+    </div>
+    <div class="hero-image">
+      <img src="pp.jpeg" alt="Nkanyiso Austine Hlatshwayo">
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Section Layout */
+#welcome {
+  background-color: #000;
+  color: #fff;
+  padding: 80px 5%;
+  overflow: hidden;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+}
+
+.hero-text {
+  flex: 1 1 500px;
+  max-width: 600px;
+}
+
+.hero-text .intro {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.hero-image {
+  flex: 1 1 300px;
+  max-width: 350px;
+  text-align: center;
+}
+
+.hero-image img {
+  width: 100%;
+  border-radius: 15px;
+  border: 3px solid #ff0000;
+  box-shadow: 0 0 20px #ff0000;
+}
+
+/* Neon Effects */
+.neon-welcome {
+  font-size: 2rem;
+  color: #ff0000;
+  text-shadow:
+    0 0 5px #ff0000,
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 40px #ff0000;
+  animation: flicker 2s infinite alternate;
+}
+
+.neon-name {
+  font-size: 3rem;
+  color: #00ffff;
+  text-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 40px #00ffff,
+    0 0 60px #00ffff;
+}
+
+.neon-skill {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px #ff00ff,
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 40px #ff00ff;
+  transition: all 0.5s ease;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-text {
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+// Skills carousel
+const skills = ["Web Developer", "Systems Admin", "DB Admin", "UX Designer", "Software Tester", "IT Manager", "Full Stack Dev"];
+let index = 0; 
+const skillEl = document.getElementById('skill');
+
+function showNextSkill() {
+  skillEl.classList.remove('show'); 
+  skillEl.classList.add('hide');
+  setTimeout(() => {
+    skillEl.textContent = skills[index];
+    skillEl.classList.remove('hide'); 
+    skillEl.classList.add('show');
+    index = (index + 1) % skills.length;
+  }, 500);
+}
+
+showNextSkill(); 
+setInterval(showNextSkill, 2500);
+</script>
+
+<section class="section black" id="about">
+  <h2>About Me</h2>
+  <p>
+       I am an individual with a strong foundation in IT, experienced in the full Software Development Life Cycle (SDLC) — from planning and requirement analysis, through system design, development, testing, deployment, and maintenance. 
+    Passionate about web development, systems design, and app solutions, I enjoy creating innovative and efficient solutions while continuously learning new technologies. 
+    I strive to deliver projects that are functional, user-friendly, and impactful.
+  
+  </p><p>In addition to technical skills, I excel in IT work that doesn’t require coding. This includes systems analysis, business process modeling, documentation, troubleshooting, user training, and workflow optimization. I enjoy identifying areas for improvement, streamlining operations, and ensuring projects run efficiently from start to finish. These skills allow me to contribute effectively to teams and projects beyond just software development, bridging the gap between technology and practical business solutions.
+<p/>
+
+
+  <button onclick="window.location.href='about.html'">Read More</button>
+</section>
+
+<style>
+#about {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 60px 5%;
+  font-family: Arial, sans-serif;
+}
+
+#about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+#about p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+}
+
+#about button {
+  background: transparent;
+  border: 2px solid #ff0000;
+  color: #ff0000;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+}
+
+#about button:hover {
+  color: #fff;
+  background-color: #ff0000;
+  box-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000,
+    0 0 40px #ff0000;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+}
+</style>
+<canvas id="networkGlobe"></canvas>
+
+  <script>
+//animation 1
+    const canvas = document.getElementById("networkGlobe");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const nodes = [];
+    const lines = [];
+    const radius = Math.min(width, height) / 3;
+    const numNodes = 80;
+
+    // Generate nodes in 3D space
+    for (let i = 0; i < numNodes; i++) {
+      const phi = Math.acos(-1 + (2 * i) / numNodes);
+      const theta = Math.sqrt(numNodes * Math.PI) * phi;
+
+      nodes.push({
+        x: radius * Math.cos(theta) * Math.sin(phi),
+        y: radius * Math.sin(theta) * Math.sin(phi),
+        z: radius * Math.cos(phi),
+      });
+    }
+
+    function rotateY(point, angle) {
+      const x = point.x;
+      const z = point.z;
+      point.x = x * Math.cos(angle) - z * Math.sin(angle);
+      point.z = x * Math.sin(angle) + z * Math.cos(angle);
+    }
+
+    function rotateX(point, angle) {
+      const y = point.y;
+      const z = point.z;
+      point.y = y * Math.cos(angle) - z * Math.sin(angle);
+      point.z = y * Math.sin(angle) + z * Math.cos(angle);
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.save();
+      ctx.translate(width / 2, height / 2);
+
+      nodes.forEach((node) => {
+        rotateY(node, 0.002);
+        rotateX(node, 0.0015);
+
+        const scale = 400 / (400 + node.z);
+        const x2d = node.x * scale;
+        const y2d = node.y * scale;
+
+        ctx.beginPath();
+        ctx.arc(x2d, y2d, 3, 0, Math.PI * 2);
+        ctx.fillStyle = "#00ffcc"; // neon cyan nodes
+        ctx.fill();
+      });
+
+      // Connect nodes with lines (like a digital web)
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dz = nodes[i].z - nodes[j].z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < radius / 2) {
+            const scale1 = 400 / (400 + nodes[i].z);
+            const x1 = nodes[i].x * scale1;
+            const y1 = nodes[i].y * scale1;
+
+            const scale2 = 400 / (400 + nodes[j].z);
+            const x2 = nodes[j].x * scale2;
+            const y2 = nodes[j].y * scale2;
+
+            ctx.strokeStyle = "rgba(0, 255, 200, 0.2)";
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+<section class="section white" id="animation1">
+  <h2>Innovation-Driven Mindset</h2>
+  <p>Fresh and enthusiastic minds bring new perspectives and creative solutions to the tech world. Passionate about leveraging modern tools and innovative approaches to develop impactful software, optimize processes, and drive meaningful change in dynamic projects.</p>
+</section>
+
+<!-- Projects -->
+<section class="section white" id="projects">
+  <h2>My Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <img src="myPRO.jpeg" alt="Project 1">
+      <h3>Personal Portfolio Website</h3>
+      <p>Proud to present my portfolio web as one of the most successful website i have ever create as young innovative mind. A modern, responsive portfolio website showcasing my skills, projects, and contact information. Built with HTML, CSS, and JavaScript, it features animated sections, dark/light mode toggle, interactive videos, and a user-friendly interface to demonstrate my front-end development capabilities.</p>
+    </div>
+
+    <div class="project-card">
+      <img src="FNBs.jpeg" alt="Project 2">
+      <h3>Calculator App & Pine City Zoo App – FNB App Academy 2025</h3>
+      <p>This project includes the development of a Calculator App and the Pine City Zoo App as part of FNB App Academy 2025. It showcases my skills in app development, UI/UX design, and problem-solving, highlighting practical coding experience and creativity in building functional applications.</p><p>https://appoftheyear.co.za<p/>
+      <button onclick="window.open('https://appoftheyear.co.za', '_blank')">visit web</button>
+    </div>
+
+    <div class="project-card">
+      <img src="skaba.jpeg" alt="Project 3">
+      <h3>Skhaba Gallery (Ongoing, Freelance)</h3>
+      <p>I’m currently developing Skhaba Gallery as a freelance project, creating an online platform to showcase and explore digital content. This project highlights my web development and UI/UX skills, while allowing me to deliver a real-world, user-focused solution for clients independently.</p>
+    </div>
+
+    <div class="project-card">
+      <img src="hacko.jpeg" alt="FNB App of the Year Hackathon">
+      <h3>FNB App of the Year Hackathon 2025</h3>
+      <p>The countdown to the FNB App of the Year Hackathon starts now. On the 24th of October 2025, curious minds, fresh thinkers, and coding pros will tackle real challenges together. Whether you’ve just learned your first line of code or you’re a tech wizard, this is your space to hack problems into possibilities.</p><p>https://appoftheyear.co.za/hackathon/<p/>
+      <button onclick="window.open('https://appoftheyear.co.za/hackathon/', '_blank')">visit web</button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* Button Neon Styling */
+.project-card button {
+  background: transparent;
+  border: 2px solid #ff0000;
+  color: #ff0000;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+}
+
+.project-card button:hover {
+  color: #fff;
+  background-color: #ff0000;
+  box-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000,
+    0 0 40px #ff0000;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+}
+</style>
+
+<section class="section white" id="animation2">
+  <h2>Technology and Creativity</h2>
+  <p>As a motivated learner, I believe fresh minds fuel innovation in technology. By combining curiosity with analytical thinking, I aim to contribute to inventive solutions, streamline workflows, and explore new opportunities in software and system development.</p>
+</section>
+
+<section class="section black" id="animation3">
+  <h2>Forward-Thinking Problem Solvers</h2>
+  <p>Fresh talent brings energy, adaptability, and a forward-thinking approach to tech work. Eager to challenge conventional methods, implement innovative solutions, and contribute to projects that embrace modern technology and creative problem-solving.</p>
+</section>
+
+<section class="section neon-rate" id="rate">
+  <h2>Rate My Web</h2>
+  <div class="rating">
+    <span data-star="1">★</span>
+    <span data-star="2">★</span>
+    <span data-star="3">★</span>
+    <span data-star="4">★</span>
+    <span data-star="5">★</span>
+  </div>
+</section>
+
+<style>
+ .rating {
+  display: flex;
+  justify-content: center; /* center stars */
+  gap: 15px;              /* smaller gap to fit inside */
+  border: 2px solid #ff0000;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 90%;
+  margin: 0 auto;
+  flex-wrap: wrap;        /* wrap stars if screen is too small */
+}
+
+.rating span {
+  font-size: 2.5rem;      /* slightly smaller so they fit */
+  color: #000;
+  text-shadow:
+    0 0 5px #ff0000,
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 40px #ff0000;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.rating span:hover,
+.rating span:hover ~ span {
+  text-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000,
+    0 0 50px #ff0000;
+}
+</style>
+
+<!-- Contact Section -->
+<section class="section white" id="contact">
+  <h2>Contact Me</h2>
+  <p>
+    If you’re interested in hiring me as a freelancer, offering a job in your organisation, 
+    partnering, or if you have any other idea—please get in touch below. 
+    You can reach me directly through WhatsApp, LinkedIn, GitHub, Dropbox, or Email.
+  </p>
+
+  <div class="social-links" style="margin:20px 0; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+    <a href="https://linkedin.com/in/nkanyiso-hlatshwayo-842401355" target="_blank">
+      <img src="in.jpeg" alt="LinkedIn" style="width:60px; height:60px; border-radius:50%;">
+    </a>
+    <a href="https://wa.me/27796412723" target="_blank">
+      <img src="wa.jpeg" alt="WhatsApp" style="width:60px; height:60px; border-radius:50%;">
+    </a>
+
+    <a href="https://github.com/austine-03" target="_blank">
+      <img src="hub.jpeg" alt="GitHub" style="width:60px; height:60px; border-radius:50%;">
+    </a>
+  
+  </div>
+
+  <!-- Contact Form -->
+  <form id="contactForm" style="margin-top:20px; max-width:500px; margin:auto; display:flex; flex-direction:column; gap:10px;">
+    <input type="text" id="name" name="name" placeholder="Your Name" required 
+           style="padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <input type="email" id="email" name="email" placeholder="Your Email" required 
+           style="padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <input type="text" id="subject" name="subject" placeholder="Subject" required 
+           style="padding:10px; border-radius:5px; border:1px solid #ccc;">
+    <textarea id="message" name="message" placeholder="Your Message" required 
+              style="padding:10px; border-radius:5px; border:1px solid #ccc; min-height:120px;"></textarea>
+
+    <div style="display:flex; gap:10px;">
+      <button type="button" onclick="sendEmail()" 
+              style="flex:1; padding:10px; border:none; border-radius:5px; background:#ff1a1a; color:white; cursor:pointer;">
+        Submit
+  
+    </div>
+  </form>
+</section>
+
+<script>
+  // Function: Send via Email
+  function sendEmail() {
+    const name = document.getElementById("name").value;
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value;
+    const email = "hlatshwayonkanyiso8@gmail.com";
+    
+  }
+
+  // Function: Send via WhatsApp
+  function sendWhatsApp() {
+    const name = document.getElementById("name").value;
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value;
+    const phone = "27796412723"; // Intl. format (South Africa +27)
+    
+  }
+</script>
+
+<footer>
+  &copy; 2024 Nkanyiso Hlatshwayo. All rights reserved.
+</footer>
+
+<script>
+  // Dark/Light Mode Toggle
+  const toggle = document.getElementById("modeToggle");
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle('light');
+  });
+
+  // Ratings
+  const stars = document.querySelectorAll('.rating span');
+  stars.forEach(star=>{
+    star.addEventListener('click', ()=>{
+      stars.forEach(s=>s.classList.remove('selected'));
+      star.classList.add('selected');
+    });
+  });
+</script>
+</body>
+</html>

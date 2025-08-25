@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Nkanyiso Hlatshwayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box; transition: background 0.3s, color 0.3s;}
+body {font-family:'Poppins',sans-serif; scroll-behavior:smooth;}
+
+/* Fixed Buttons */
+.fixed-top-btn{
+    position:fixed; top:20px; left:20px; z-index:1000;
+    padding:10px 15px; font-size:14px;
+    background: rgba(0,0,0,0.4);
+    color:#fff;
+    border:none; border-radius:8px;
+    cursor:pointer; overflow:hidden;
+    transition: 0.4s;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.fixed-top-btn::before{
+    content:""; position:absolute; top:0; left:-50%; width:50%; height:100%;
+    background: linear-gradient(to left, rgba(255,0,0,0.5), transparent);
+    transform: skewX(45deg); transition:0.5s; filter: blur(0);
+}
+.fixed-top-btn:hover::before{ left:100%; }
+.fixed-top-btn:hover{ box-shadow: 0 0 10px red, 0 0 20px red; }
+
+/* Toggle Button (Top Right) */
+#modeToggle {
+    --size: 2.2em;
+    appearance: none;
+    width: calc(var(--size)*2);
+    height: var(--size);
+    background: #111;
+    border-radius: var(--size);
+    border: 2px solid #444;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index:1000;
+    transition: background 0.6s;
+}
+#modeToggle::before {
+    content: "";
+    position: absolute;
+    top: 0.15em;
+    left: 0.15em;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: #f4f4f4;
+    box-shadow: -5px -5px 0 0 #111;
+    transition: 0.6s all;
+}
+#modeToggle::after {
+    content: "✦ ✧ ✶";
+    position: absolute;
+    top: 0.35em;
+    left: 3em;
+    font-size: 0.7em;
+    color: #f4f4f4;
+    opacity: 1;
+    transition: opacity 0.6s;
+}
+
+/* LIGHT MODE VISUAL */
+body.light #modeToggle {
+    background: #fff;
+    border: 2px solid #ccc;
+}
+body.light #modeToggle::before {
+    background: #f6d743;
+    box-shadow: 0 0 12px 4px #f6d743;
+    left: calc(100% - 2.15em);
+}
+body.light #modeToggle::after {
+    opacity: 0;
+}
+
+/* Page Backgrounds */
+body.dark-mode{ background:#111; color:#fff; }
+body.light-mode{ background:#fff; color:#111; }
+
+/* Sections */
+.section{
+    padding:60px 20px;
+    max-width:1200px;
+    margin:40px auto;
+    border-radius:10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Contrasting Section Backgrounds */
+body.dark-mode .section{ background:#fff; color:#111; }
+body.light-mode .section{ background:#111; color:#fff; }
+
+/* Section Buttons Transparent Black with Neon Glow */
+.section button, .section a button{
+    padding:10px 15px;
+    border:none; border-radius:8px;
+    cursor:pointer;
+    background: rgba(0,0,0,0.4);
+    color:#fff;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.section button::before, .section a button::before{
+    content:"";
+    position:absolute; top:0; left:-50%; width:50%; height:100%;
+    background: linear-gradient(to left, rgba(255,0,0,0.6), transparent);
+    transform: skewX(45deg); transition:0.5s; filter: blur(0);
+}
+.section button:hover::before, .section a button:hover::before{ left:100%; }
+.section button:hover, .section a button:hover{
+    box-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red;
+}
+
+/* Text & Lists */
+h2,h3{margin-bottom:15px;}
+p,ul{margin-bottom:20px;line-height:1.6;}
+ul li{margin-bottom:10px;}
+
+/* Footer */
+footer{
+    text-align:center; padding:20px 0; background:#222; color:#fff; font-size:14px; margin-top:40px;
+}
+.carousel-container {
+  width: 80%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  animation: rotate3D 20s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.carousel-track img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  margin: 0 15px;
+  border-radius: 10px;
+  transition: transform 0.5s;
+}
+
+.carousel-track img:hover {
+  transform: scale(1.2) translateZ(50px); /* hover zoom + depth */
+}
+
+/* 3D sliding effect */
+@keyframes rotate3D {
+  0% {
+    transform: rotateY(0deg) translateZ(0);
+  }
+  100% {
+    transform: rotateY(-360deg) translateZ(0);
+  }
+}
+</style>
+</head>
+<body class="dark-mode">
+
+<!-- Buttons -->
+<button class="fixed-top-btn" onclick="goHome()">← Back to Home</button>
+<button id="modeToggle"></button>
+
+<!-- Sections -->
+<section class="section" id="opportunities">
+  <h2>Opportunities</h2>
+  <h3>Seeking Internship</h3>
+  <p>I am looking for an internship to apply my technical skills and gain practical experience in IT projects and software development.</p>
+  <a href="WILcv1.pdf" target="_blank"><button>View CV</button></a>
+  <h3>Seeking Junior Role</h3>
+  <p>I am seeking a junior-level IT position where I can utilize my academic and project experience to contribute effectively. I am confident in handling responsibilities and delivering results.</p>
+  <a href="ITjobCV.pdf" target="_blank"><button>View CV</button></a>
+</section>
+
+<section class="section" id="about">
+  <h2>About Me</h2>
+  <p><!-- Education -->
+  <h3>Education</h3>
+  
+  <p><strong>Matric - Ndlelanhle Secondary (2022)</strong></p>
+  <ul>
+    <li>IsiZulu Home Language</li>
+    <li>English First Additional Language</li>
+    <li>Mathematics</li>
+    <li>Life Orientation</li>
+    <li>Geography</li>
+    <li>Life Sciences</li>
+    <li>Physical Sciences</li>
+  </ul>
+  
+  <p><strong>Tshwane University of Technology (TUT) - BTech Informatics (2023 - Present)</strong></p>
+  <p>Currently pursuing a degree in Informatics under the Faculty of Information Communication Technology. Key modules completed include:</p>
+  
+  <ul>
+    <!-- 2023 -->
+    <li>Student Orientation</li>
+    <li>Information Literacy</li>
+    <li>Communication for Academic Purposes</li>
+    <li>Life Skills</li>
+    <li>Computing Fundamentals</li>
+    <li>Principles of Programming</li>
+    <li>Computational Mathematics</li>
+    <li>Business Fundamentals</li>
+    <li>Business Cost Management</li>
+    
+    <!-- 2024 -->
+    <li>Introduction to Strategic Information Systems</li>
+    <li>System Analysis</li>
+    <li>Business Analysis</li>
+    <li>Project Management</li>
+    
+    <!-- 2025 -->
+    <li>IT Project Management</li>
+    <li>Process Testing</li>
+    <li>Information System Deployment</li>
+    <li>Introduction to Enterprise Architecture</li>
+  </ul>
+  
+  <p>
+    I am now in my final year (2025), with my expected graduation scheduled for March next year. Over the course of my studies, I have gained a strong foundation in software development, system analysis, project management, and enterprise architecture. These experiences have strengthened my problem-solving, analytical thinking, and technical abilities. I am eager to apply my knowledge and skills to real-world IT projects and contribute effectively in a professional technology environment.
+  </p></p>
+</section>
+
+<section class="section" id="skills">
+  <h2>Skills(Maped with SDLC)</h2>
+  <p><div class="carousel-container">
+  <div class="carousel-track">
+    
+    <img src="w1.jpeg" alt="">
+    <img src="b1.jpeg" alt="">
+    <img src="w3.jpeg" alt="">
+    <img src="b2.jpeg" alt="">
+    <img src="w2.jpeg" alt="">
+    <img src="b3.jpeg" alt="">
+    <img src="w4.jpeg" alt="">
+    <img src="b4.jpeg" alt="">
+    <img src="w5.jpeg" alt="">
+    <img src="b5.jpeg" alt="">
+    
+  </div>
+</div>
+  <!-- Planning / Requirement Analysis -->
+  <h3>Planning / Requirement Analysis</h3>
+  <p>
+    This stage focuses on understanding project requirements and planning the solution. I am skilled in problem-solving, requirement gathering, stakeholder communication, and IT project analysis.
+  </p>
+  <ul>
+    <li>Requirement Gathering & Documentation</li>
+    <li>Stakeholder Communication</li>
+    <li>Problem-Solving & Analytical Thinking</li>
+    <li>Project Planning Tools (Trello, Jira)</li>
+  </ul>
+  
+  <!-- System Design -->
+  <h3>System Design</h3>
+  <p>
+    Designing effective systems is crucial. I have experience in UI/UX design, database modeling, system architecture planning, and creating wireframes for applications.
+  </p>
+  <ul>
+    <li>UI/UX Design Principles</li>
+    <li>Database Design & Modeling</li>
+    <li>System Architecture Planning</li>
+    <li>Wireframing & Prototyping Tools (Figma, Balsamiq)</li>
+  </ul>
+  
+  <!-- Implementation / Coding -->
+  <h3>Implementation / Coding</h3>
+  <p>
+    I can translate designs into functional software. My programming skills include web, desktop, and enterprise applications.
+  </p>
+  <ul>
+    <li>Web Development: HTML, CSS, JavaScript, React</li>
+    <li>Backend & Full Stack: Python, Node.js, Java</li>
+    <li>Database: MySQL, PostgreSQL</li>
+    <li>Version Control: Git & GitHub</li>
+    <li>Software Development & Debugging</li>
+  </ul>
+  
+  <!-- Testing -->
+  <h3>Testing</h3>
+  <p>
+    Ensuring software quality is essential. I have experience with various testing techniques and debugging to deliver reliable applications.
+  </p>
+  <ul>
+    <li>Unit Testing & Integration Testing</li>
+    <li>Manual & Automated Testing</li>
+    <li>Quality Assurance Practices</li>
+    <li>Performance & Load Testing</li>
+  </ul>
+  
+  <!-- Deployment -->
+  <h3>Deployment</h3>
+  <p>
+    I can deploy applications efficiently and manage version control for ongoing updates and maintenance.
+  </p>
+  <ul>
+    <li>Hosting & Deployment (Netlify, GitHub Pages, Heroku)</li>
+    <li>Continuous Integration / Continuous Deployment (CI/CD) Basics</li>
+    <li>Git & GitHub Version Control</li>
+  </ul>
+  
+  <!-- Maintenance -->
+  <h3>Maintenance</h3>
+  <p>
+    After deployment, maintaining software and systems is key. I can monitor, update, fix bugs, and provide user support to ensure smooth operation.
+  </p>
+  <ul>
+    <li>System Monitoring & Updates</li>
+    <li>Bug Fixing & Troubleshooting</li>
+    <li>User Support & Documentation</li>
+    <li>Continuous Improvement of Systems</li>
+  </ul></p>
+</section>
+
+<section class="section" id="achievements">
+  <h2>Achievements</h2>
+  <p>  
+  <p>
+    Over the years, I have successfully developed multiple projects that showcase my technical and project management skills. Notably, I created a *Calculator App* and a *Pine City Zoo App* through the FNB App Academy. These projects allowed me to gain hands-on experience in full-stack development, debugging, testing, and deploying applications.
+  </p>
+  
+  <p>
+    In addition, I have participated in several academic competitions and collaborative projects during my university studies, earning recognition for my problem-solving abilities, innovation, and teamwork. These experiences have strengthened my practical knowledge and prepared me to tackle real-world IT challenges effectively.
+  </p>
+  
+  <p>
+    My achievements reflect both technical proficiency and dedication to continuous learning. I am motivated to leverage these skills to contribute meaningfully to any professional environment.
+  </p>
+<p> I have earned a number of IT-related certificates from reputable higher education institutions as well as external organizations. These certifications reflect my commitment to continuous learning, professional development, and staying up-to-date with the latest technologies and industry best practices. They span areas such as web development, systems administration, database management, software testing, and IT project management, further strengthening my skills and practical knowledge in the field.</p>
+  </p>
+</section>
+
+<section class="section" id="projects">
+  <h2>Current Projects</h2>
+  <p><p>
+    I am currently working as a freelancer on the <strong>Skhaba Gallery Online Web</strong>, building a fully functional gallery platform to showcase artwork and media online.
+  </p></p>
+</section>
+
+<section class="section" id="career">
+  <h2>Career Path</h2>
+  <p><p>
+    I am actively seeking opportunities to contribute to IT projects and grow professionally. If you are looking for a motivated and skilled candidate, <strong>hire me!</strong>
+  </p>
+  
+  <p><strong>Technical Roles (Coding Required):</strong> Web Developer, Full Stack Developer, Systems Admin, DB Admin, Software Tester, UX Designer.</p>
+  <p><strong>Non-Technical Roles:</strong> IT Manager, Project Coordinator, System Analyst, IT Support.</p>
+  
+  
+  <!-- Contact Info -->
+  <p style="margin-top:20px;">
+    <strong>Phone:</strong> 0796412723<br>
+    <strong>Email:</strong> <a href="mailto:hlatshwayonkanyiso8@gmail.com">hlatshwayonkanyiso8@gmail.com</a>
+  </p></p>
+</section>
+
+<section class="section" id="goals">
+  <h2>Future Goals</h2>
+  <p>In the near future, I aim to master advanced Full Stack development and cloud technologies, and contribute to innovative tech solutions. 
+    In the long term, I dream of launching my own tech startup that focuses on building impactful software for education and community development.</p>
+</section>
+
+<footer>
+  &copy; 2025 Nkanyiso Hlatshwayo. All rights reserved.
+</footer>
+
+<script>
+// Go back to home page
+function goHome(){ window.location.href = 'index.html'; }
+
+// Toggle Dark / Light Mode
+const toggle = document.getElementById("modeToggle");
+toggle.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("light-mode");
+});
+</script>
+</body>
+</html>
